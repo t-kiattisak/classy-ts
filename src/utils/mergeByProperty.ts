@@ -1,15 +1,12 @@
-import { ClassPropertyPlugin } from "../plugins/classPropertyPlugin"
+import { getClassPropertyPlugin } from "./pluginConfig"
 
-export function mergeByProperty(
-  classNames: string[],
-  plugin: ClassPropertyPlugin
-): string {
+export function mergeByProperty(classNames: string[]): string {
+  const plugin = getClassPropertyPlugin()
   const propMap = new Map<string, string>()
   const unknown = new Set<string>()
 
   for (const cls of classNames) {
     const props = plugin.resolveProperty(cls)
-
     if (props.length === 0) {
       unknown.add(cls)
     } else {
