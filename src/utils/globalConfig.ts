@@ -1,12 +1,27 @@
+import type { CustomPresetMap } from "../types"
 import type { ClassyPlugin } from "../types/plugin"
 
-let currentPlugin: ClassyPlugin | null = null
+let _presets = {} as CustomPresetMap
+let _plugin: ClassyPlugin | undefined
 
-export function setClassyPlugin(plugin: ClassyPlugin) {
-  currentPlugin = plugin
+export const getClassyGlobalConfig = () => ({
+  presets: _presets,
+  plugin: _plugin,
+})
+
+export function defineClassy<const T extends CustomPresetMap>(config: {
+  presets: T
+  plugin: ClassyPlugin
+}): { presets: T; plugin: ClassyPlugin } {
+  _presets = config.presets
+  _plugin = config.plugin
+  return config
 }
 
-export function getClassyPlugin(): ClassyPlugin {
-  if (!currentPlugin) throw new Error("No plugin set for classy")
-  return currentPlugin
+export function getGlobalPresets(): CustomPresetMap {
+  return _presets
+}
+
+export function getGlobalPlugin(): ClassyPlugin | undefined {
+  return _plugin
 }

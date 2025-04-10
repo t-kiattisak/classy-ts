@@ -1,12 +1,8 @@
-import {
-  ClassyOptions,
-  ClassyTuple,
-  ChainableBuilder,
-  PresetName,
-} from "./types"
+import { ClassyOptions, ClassyTuple, ChainableBuilder } from "./types"
 import { handleObjectConfig } from "./handlers/objectConfig"
 import { handleTuple } from "./handlers/tuple"
 import { handleChainable } from "./handlers/chain"
+import { PresetName } from "./types/globalPresets"
 
 export function classy(): ChainableBuilder
 export function classy<Name extends PresetName>(

@@ -1,4 +1,4 @@
-import { defaultPresets } from "../presets/default"
+import { PresetConditions, PresetName } from "./globalPresets"
 
 export type ConditionClassMap = Record<string, string>
 
@@ -7,12 +7,7 @@ export interface Preset {
   conditions?: ConditionClassMap
 }
 
-export type PresetName = keyof typeof defaultPresets
-
-export type PresetConditions<Name extends PresetName> =
-  Name extends keyof typeof defaultPresets
-    ? keyof (typeof defaultPresets)[Name]["conditions"]
-    : never
+export type CustomPresetMap = Record<string, Preset>
 
 export interface ClassyOptions<Name extends PresetName = PresetName> {
   base?: string
@@ -20,14 +15,12 @@ export interface ClassyOptions<Name extends PresetName = PresetName> {
   conditions?: Partial<Record<PresetConditions<Name>, boolean>>
 }
 
-export type CustomPresetMap = Record<string, Preset>
-
 export type ClassyTuple = [string, boolean]
 
 export interface ChainableBuilder {
   base(className: string): ChainableBuilder
   when(condition: string, value: boolean): ChainableBuilder
-  usePreset(name: keyof typeof defaultPresets): ChainableBuilder
+  usePreset(name: PresetName): ChainableBuilder
   build(): string
 }
 
