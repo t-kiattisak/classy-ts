@@ -39,7 +39,7 @@ export const config = defineClassy({
       },
     },
   },
-  plugin: tailwindPlugin(),
+  plugins: [tailwindPlugin()],
 })
 
 type MyPresets = typeof config.presets
@@ -98,7 +98,7 @@ import { defineClassy, tailwindPlugin } from "classy-ts"
 
 defineClassy({
   presets: { ... },
-  plugin: tailwindPlugin(),
+  plugins: [tailwindPlugin()],
 })
 ```
 
@@ -108,7 +108,7 @@ Custom plugins must follow the `ClassyPlugin` interface:
 export function myPlugin(): ClassyPlugin {
   return {
     name: "my-plugin",
-    merge(classes) {
+    merge(...classes) {
       return classes.join(" ")
     },
   }
