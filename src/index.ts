@@ -3,7 +3,7 @@ export { tailwindPlugin } from "./plugins/tailwindPlugin"
 export { removeByPrefixPlugin } from "./plugins/removeByPrefixPlugin"
 export {
   defineClassy,
-  getGlobalPlugin,
+  getGlobalPlugins as getGlobalPlugin,
   getGlobalPresets,
 } from "./utils/globalConfig"
 export * from "./main"

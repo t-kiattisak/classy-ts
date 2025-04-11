@@ -1,10 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import { mergeByProperty } from "./mergeByProperty"
-import * as pluginModule from "./pluginConfig"
+import * as globalConfig from "./globalConfig"
 
 describe("mergeByProperty", () => {
   beforeEach(() => {
     const mockPlugin = {
+      name: "mock",
+      merge: (...cls: string[]) => cls.join(" "),
       resolveProperty: (cls: string): string[] => {
         const map: Record<string, string[]> = {
           "text-left": ["text-align"],
@@ -16,7 +18,8 @@ describe("mergeByProperty", () => {
         return map[cls] ?? []
       },
     }
-    vi.spyOn(pluginModule, "getClassPropertyPlugin").mockReturnValue(mockPlugin)
+
+    vi.spyOn(globalConfig, "getGlobalPlugins").mockReturnValue([mockPlugin])
   })
 
   it("should keep last class with same property", () => {

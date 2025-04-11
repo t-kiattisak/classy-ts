@@ -1,26 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest"
+import { describe, it, expect } from "vitest"
 import { bootstrapPlugin } from "./bootstrapPlugin"
-import * as pluginConfig from "../utils/pluginConfig"
 
 describe("bootstrapPlugin", () => {
-  beforeEach(() => {
-    const mockBootstrapPlugin = {
-      resolveProperty: (className: string): string[] => {
-        const map: Record<string, string[]> = {
-          "fw-bold": ["font-weight"],
-          "fw-normal": ["font-weight"],
-          "text-start": ["text-align"],
-          "text-end": ["text-align"],
-        }
-        return map[className] || []
-      },
-    }
-
-    vi.spyOn(pluginConfig, "getClassPropertyPlugin").mockReturnValue(
-      mockBootstrapPlugin
-    )
-  })
-
   const plugin = bootstrapPlugin()
 
   it("should merge font-weight classes", () => {
