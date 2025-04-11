@@ -1,6 +1,6 @@
 export interface ClassyPlugin {
   name: string
-  merge(classes: string[]): string
+  merge(...classes: string[]): string
 }
 
 export interface ClassPropertyPlugin {

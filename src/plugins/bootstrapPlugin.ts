@@ -7,6 +7,7 @@ import type { ClassyPlugin } from "../types/plugin"
 const bootstrapConflictMap = [
   "bg",
   "text",
+  "fw",
   "d",
   "m",
   "mt",
@@ -54,17 +55,13 @@ export function bootstrapPlugin(): ClassyPlugin {
      * @param classList List of class names (strings)
      * @returns Merged className string
      */
-    merge(classList: string[]) {
+    merge(...classList: string[]) {
       const seen = new Map<string, string>()
 
       for (const cls of classList) {
         const prefix = extractPrefix(cls)
-
-        if (bootstrapConflictMap.includes(prefix)) {
-          seen.set(prefix, cls)
-        } else {
-          seen.set(cls, cls)
-        }
+        const key = bootstrapConflictMap.includes(prefix) ? prefix : cls
+        seen.set(key, cls)
       }
 
       return Array.from(seen.values()).join(" ")

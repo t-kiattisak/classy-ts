@@ -18,7 +18,7 @@ export function tailwindPlugin(): ClassyPlugin {
      * @param classes List of raw class names (strings)
      * @returns Merged className string
      */
-    merge(classes) {
+    merge(...classes) {
       return twMerge(classes.join(" "))
     },
   }
